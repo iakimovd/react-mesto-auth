@@ -27,26 +27,30 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isSuccess, setIsSuccess] = useState(null);
   const history = useHistory();
   const [email, setEmail] = useState('');
 
   useEffect(() => {
-    api.getInitialCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch(err => { console.log(err) });
-  }, []);
+    if (isLoggedIn) {
+      api.getInitialCards()
+        .then((cards) => {
+          setCards(cards);
+        })
+        .catch(err => { console.log(err) });
+    }
+  }, [isLoggedIn]);
 
   useEffect(() => {
-    api.getUserInfo()
-      .then((userData) => {
-        setCurrentUser(userData);
-      })
-      .catch(err => { console.log(err) });
-  }, []);
+    if (isLoggedIn) {
+      api.getUserInfo()
+        .then((userData) => {
+          setCurrentUser(userData);
+        })
+        .catch(err => { console.log(err) });
+    }
+  }, [isLoggedIn]);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -77,11 +81,12 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    // setDeleteCardPopupOpen(true);
+    setDeleteCardPopupOpen(true);
     api.deleteCard(card._id)
       .then(() => {
-        setDeleteCardPopupOpen(true);
+        // setDeleteCardPopupOpen(true);
         setCards((state) => state.filter((data) => data._id !== card._id));
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
@@ -192,7 +197,7 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
 
-        <Header email={email} onLogout={onLogout}/>
+        <Header email={email} onLogout={onLogout} />
 
         <Switch>
 
@@ -206,7 +211,7 @@ function App() {
 
           <ProtectedRoute
             exact path="/"
-            loggedIn={loggedIn}
+            loggedIn={isLoggedIn}
             component={Main}
             cards={cards}
             onEditProfile={handleEditProfileClick}
@@ -229,22 +234,9 @@ function App() {
 
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
 
-        <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} isSuccess={isSuccess}/>
+        <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} isSuccess={isSuccess} />
 
-        <DeleteCardPopup isOpen={isDeleteCardPopupOpen} onClose={closeAllPopups} onCardDelete={handleCardDelete}/>
-
-        <div className="popup delete-card-popup">
-          <div className="popup__container popup__container_delete-card">
-            <h3 className="popup__title">Вы уверены?</h3>
-            <form className="popup__form" name="delete-card-form" noValidate>
-              <button className="popup__save-button" type="submit">Да</button>
-            </form>
-            <button
-              className="popup__close-button popup__close-button_add-new-card"
-              type="button"
-            ></button>
-          </div>
-        </div>
+        <DeleteCardPopup isOpen={isDeleteCardPopupOpen} onClose={closeAllPopups} onCardDelete={handleCardDelete} card={selectedCard} />
 
       </CurrentUserContext.Provider>
     </div >

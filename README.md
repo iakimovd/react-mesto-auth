@@ -1,6 +1,26 @@
-# Getting Started with Create React App
+# Место - проектная работа Яндекс.Практикум
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
+
+### Данный проект написан при помощи технологий:
+
+-   HTML5
+-   CSS
+-   [Create React App](https://github.com/facebook/create-react-app)
+
+---
+
+#### Ссылка на проект в GitHub Pages: https://iakimovd.github.io/mesto-react/
+
+### Так же данный проект:
+
+-   Написан по БЭМ методологии:
+
+1. HTML вёрстка выполнена в БЭМ-терминах.
+2. CSS вёрстка выполнена независимыми блоками.
+3. Файловая структура оформлена по правилам Nested БЭМ.
+
+---
 
 ## Available Scripts
 

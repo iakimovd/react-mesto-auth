@@ -21,7 +21,10 @@ export function Register({ onRegister }) {
   return (
     <div className="auth">
       <h3 className="auth__title">Регистрация</h3>
-      <form className="auth__form" name="auth-form" noValidate onSubmit={handleSubmit}>
+      <form className="auth__form"
+        name="auth-form"
+        // noValidate
+        onSubmit={handleSubmit}>
         <input
           className="auth__input popup__input_type_email"
           id="email-input"
