@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import '../index.css';
@@ -25,6 +25,7 @@ function App() {
   const [isDeleteCardPopupOpen, setDeleteCardPopupOpen] = useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+  const [deleteSelectedCard, setDeleteSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState([]);
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -80,16 +81,28 @@ function App() {
       .catch(err => { console.log(err) })
   }
 
+  const openDeleteCardPopup = useCallback((card) => {
+    setDeleteSelectedCard(card);
+  }, [])
+
+  const closeDeleteCardPopup = useCallback(() => {
+    setDeleteSelectedCard(null);
+  }, [])
+
   function handleCardDelete(card) {
     setDeleteCardPopupOpen(true);
     api.deleteCard(card._id)
       .then(() => {
         // setDeleteCardPopupOpen(true);
         setCards((state) => state.filter((data) => data._id !== card._id));
-        closeAllPopups();
+        closeDeleteCardPopup();
+        // closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setDeleteCardPopupOpen(false);
       });
   }
 
@@ -125,7 +138,6 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsInfoTooltipPopupOpen(false);
-    setDeleteCardPopupOpen(false);
     setSelectedCard(null);
   }
 
@@ -219,7 +231,7 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onCardClick={handleCardClick}
             onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
+            onCardDelete={openDeleteCardPopup}
           />
 
         </Switch>
@@ -236,7 +248,13 @@ function App() {
 
         <InfoTooltip isOpen={isInfoTooltipPopupOpen} onClose={closeAllPopups} isSuccess={isSuccess} />
 
-        <DeleteCardPopup isOpen={isDeleteCardPopupOpen} onClose={closeAllPopups} onCardDelete={handleCardDelete} card={selectedCard} />
+        <DeleteCardPopup
+          isOpen={openDeleteCardPopup}
+          onClose={closeDeleteCardPopup}
+          onSubmit={handleCardDelete}
+          card={deleteSelectedCard}
+          isRequest={isDeleteCardPopupOpen}
+        />
 
       </CurrentUserContext.Provider>
     </div >

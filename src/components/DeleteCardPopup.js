@@ -1,15 +1,22 @@
 import React from 'react';
 import { PopupWithForm } from "./PopupWithForm";
 
-export function DeleteCardPopup({ isOpen, onClose, onCardDelete, card }) {
+export function DeleteCardPopup({ card, onClose, onSubmit, isRequest }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onCardDelete(card);
+    onSubmit(card);
   }
 
   return (
-    <PopupWithForm title="Вы уверены?" name="edit-avatar" isOpen={isOpen} onClose={onClose} buttonName="Да" onSubmit={handleSubmit}>
+    <PopupWithForm
+      title="Вы уверены?"
+      name="delete-card"
+      isOpen={!!card}
+      onClose={onClose}
+      buttonName={isRequest ? "Удаление" : "Да"}
+      onSubmit={handleSubmit}
+    >
 
     </PopupWithForm>
   )

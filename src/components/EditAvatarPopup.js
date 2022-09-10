@@ -20,7 +20,14 @@ export function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   }, [isOpen]);
 
   return (
-    <PopupWithForm title="Обновить аватар" name="edit-avatar" isOpen={isOpen} onClose={onClose} buttonName="Сохранить" onSubmit={handleSubmit}>
+    <PopupWithForm
+      title="Обновить аватар"
+      name="edit-avatar"
+      isOpen={isOpen}
+      onClose={onClose}
+      buttonName="Сохранить"
+      onSubmit={handleSubmit}
+    >
 
       <fieldset className="popup__inputs">
         <input
