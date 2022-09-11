@@ -37,7 +37,14 @@ export function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   }
 
   return (
-    <PopupWithForm title="Редактировать профиль" name="edit-profile" isOpen={isOpen} onClose={onClose} buttonName="Сохранить" onSubmit={handleSubmit}>
+    <PopupWithForm
+      title="Редактировать профиль"
+      name="edit-profile"
+      isOpen={isOpen}
+      onClose={onClose}
+      buttonName="Сохранить"
+      onSubmit={handleSubmit}
+    >
 
       <>
         <fieldset className="popup__inputs">

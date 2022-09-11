@@ -18,6 +18,7 @@ export function Login({ onLogin }) {
   }
 
   return (
+
     <div className="auth">
       <h3 className="auth__title">Вход</h3>
       <form className="auth__form"
@@ -52,5 +53,6 @@ export function Login({ onLogin }) {
         <button className="auth__button" type="submit">Войти</button>
       </form>
     </div>
+    
   )
 }

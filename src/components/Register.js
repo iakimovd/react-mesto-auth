@@ -19,6 +19,7 @@ export function Register({ onRegister }) {
   }
 
   return (
+
     <div className="auth">
       <h3 className="auth__title">Регистрация</h3>
       <form className="auth__form"
@@ -57,5 +58,7 @@ export function Register({ onRegister }) {
         <Link to="/" className="auth__login-link">&nbsp;Войти</Link>
       </div>
     </div>
+
   )
+
 }

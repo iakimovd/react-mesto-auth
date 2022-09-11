@@ -3,6 +3,7 @@ import React from "react";
 export function ImagePopup({ card, onClose }) {
 
   return (
+
     <div className={`popup open-picture-popup popup_picture-show ${card && "popup_opened"}`} onClick={onClose}>
       <div className="popup__picture-container" onClick={e => e.stopPropagation()}>
         <img className="popup__image" src={card?.link} alt={card?.name} />
@@ -13,6 +14,7 @@ export function ImagePopup({ card, onClose }) {
         ></button>
       </div>
     </div>
+    
   )
 
 }
