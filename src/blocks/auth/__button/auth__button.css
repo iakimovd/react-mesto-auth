@@ -2,6 +2,7 @@
   width: 358px;
   height: 50px;
   margin-top: 216px;
+  margin-bottom: 15px;
   padding: 0;
   font-weight: 400;
   font-size: 18px;
@@ -22,10 +23,10 @@
 
 @media screen and (max-width: 600px) {
   .auth__button {
-    width: 238px;
+    width: 260px;
     height: 46px;
     font-size: 14px;
     line-height: 17px;
-    margin: 15px auto 25px;
+    margin: 15px auto 20px;
   }
 }

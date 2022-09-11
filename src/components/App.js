@@ -93,10 +93,8 @@ function App() {
     setDeleteCardPopupOpen(true);
     api.deleteCard(card._id)
       .then(() => {
-        // setDeleteCardPopupOpen(true);
         setCards((state) => state.filter((data) => data._id !== card._id));
         closeDeleteCardPopup();
-        // closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
